@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/KiKiKi-KiKi/rollup-with-esbuild-sandbox/issues"
   },
-  "homepage": "https://github.com/KiKiKi-KiKi/rollup-with-esbuild-sandbox#readme"
+  "homepage": "https://github.com/KiKiKi-KiKi/rollup-with-esbuild-sandbox#readme",
+  "devDependencies": {
+    "esbuild": "^0.13.9"
+  }
 }
