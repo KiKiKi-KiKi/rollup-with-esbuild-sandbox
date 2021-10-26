@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/KiKiKi-KiKi/rollup-with-esbuild-sandbox#readme",
   "devDependencies": {
+    "@types/node": "^16.11.6",
     "esbuild": "^0.13.9"
   },
   "dependencies": {
