@@ -1,0 +1,20 @@
+{
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+  "path-autocomplete.pathMappings": {
+    "@": "${folder}/src",
+    "~": "${folder}/public"
+  }
+}
