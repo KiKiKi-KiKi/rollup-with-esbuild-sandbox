@@ -4,7 +4,7 @@
   "description": "- https://rollupjs.org/guide/en/",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx rollup --config"
   },
   "repository": {
     "type": "git",
