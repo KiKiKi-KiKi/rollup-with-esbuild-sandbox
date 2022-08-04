@@ -1,0 +1,22 @@
+{
+  "name": "rollup-sandbox",
+  "version": "1.0.0",
+  "description": "- https://rollupjs.org/guide/en/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KiKiKi-KiKi/rollup-with-esbuild-sandbox.git"
+  },
+  "author": "@KiKiKi-KiKi (https://github.com/KiKiKi-KiKi)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KiKiKi-KiKi/rollup-with-esbuild-sandbox/issues"
+  },
+  "homepage": "https://github.com/KiKiKi-KiKi/rollup-with-esbuild-sandbox#readme",
+  "devDependencies": {
+    "rollup": "^2.77.2"
+  }
+}
