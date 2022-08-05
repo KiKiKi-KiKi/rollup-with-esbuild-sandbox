@@ -1,5 +1,5 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-// not working
+// not working with ESM and CJS
 // import commonjs from '@rollup/plugin-commonjs';
 
 const config = {
