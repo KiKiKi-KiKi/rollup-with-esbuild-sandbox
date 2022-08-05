@@ -1,5 +1,5 @@
 import $ from './lib/jquery.esm';
-import { sum } from './add';
+import { sum } from './sum';
 // import が存在すると require は @rollup/plugin-commonjs を使っても解消されない
 // const sub = require('./sub.cjs').sub;
 
