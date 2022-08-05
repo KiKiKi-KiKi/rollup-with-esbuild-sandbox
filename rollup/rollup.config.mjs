@@ -7,7 +7,11 @@ import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 // remove console.log
 import strip from '@rollup/plugin-strip';
+import { brotliCompress } from 'zlib';
+import { promisify } from 'util';
 import gzipPlugin from 'rollup-plugin-gzip';
+
+const brotliPromise = promisify(brotliCompress);
 
 const isProduction = process.env.MODE === 'production' || false;
 
@@ -33,6 +37,11 @@ const config = () => {
           terser(),
           gzipPlugin({
             fileName: '.gz',
+          }),
+          // Brotil compression as .br files
+          gzipPlugin({
+            customCompression: (content) => brotliPromise(Buffer.from(content)),
+            fileName: '.br',
           }),
         ],
       },
