@@ -1,6 +1,7 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
 // not working with ESM and CJS
+// commonjs() プラグインを使うと jQuery がうまくバンドルできない
 import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 
@@ -19,7 +20,11 @@ const config = {
       plugins: [terser()],
     },
   ],
-  plugins: [commonjs(), nodeResolve(), babel({ babelHelpers: 'bundled' })],
+  plugins: [
+    // commonjs(),
+    nodeResolve(),
+    babel({ babelHelpers: 'bundled' }),
+  ],
 };
 
 export default config;
