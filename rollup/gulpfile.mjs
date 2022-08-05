@@ -3,6 +3,7 @@
 import gulp from 'gulp';
 import { rollup } from 'rollup';
 import gzip from 'gulp-gzip';
+import gulpBrotli from 'gulp-brotli';
 
 import configDev from './rollup/config.dev.mjs';
 import configProd from './rollup/config.prod.mjs';
@@ -36,8 +37,19 @@ const gzipJS = (cb) => {
     .pipe(gulp.dest(`${destDir}`));
 };
 
+const brotliJS = (cb) => {
+  return gulp
+    .src(`${destDir}/main.min.js`)
+    .pipe(
+      gulpBrotli.compress({
+        extension: 'br',
+      })
+    )
+    .pipe(gulp.dest(`${destDir}`));
+};
+
 const buildJSTask = isProduction
-  ? gulp.series(buildJS, gzipJS)
+  ? gulp.series(buildJS, gulp.parallel(gzipJS, brotliJS))
   : gulp.series(buildJS);
 
 export default () => {
