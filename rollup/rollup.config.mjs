@@ -7,6 +7,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 // remove console.log
 import strip from '@rollup/plugin-strip';
+import gzipPlugin from 'rollup-plugin-gzip';
 
 const isProduction = process.env.MODE === 'production' || false;
 
@@ -28,7 +29,12 @@ const config = () => {
       output: {
         file: outputFile,
         format,
-        plugins: [terser()],
+        plugins: [
+          terser(),
+          gzipPlugin({
+            fileName: '.gz',
+          }),
+        ],
       },
       plugins: [
         ...plugins,
