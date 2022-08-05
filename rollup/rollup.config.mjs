@@ -8,34 +8,46 @@ import { terser } from 'rollup-plugin-terser';
 // remove console.log
 import strip from '@rollup/plugin-strip';
 
-const config = {
-  // entrypoint
-  input: './src/index.js',
-  output: [
-    {
-      file: './build/dist.js',
-      // esm, cjs, amd, system, iife, umd
-      format: 'iife',
-    },
-    {
-      file: './build/dist.min.js',
-      format: 'iife',
+const isProduction = process.env.MODE === 'production' || false;
+
+const inputFile = './src/index.js';
+const outputFile = isProduction ? './build/dist.min.js' : './build/dist.js';
+// esm, cjs, amd, system, iife, umd
+const format = 'iife';
+const plugins = [
+  // commonjs(),
+  nodeResolve(),
+  babel({ babelHelpers: 'bundled' }),
+];
+
+const config = () => {
+  if (isProduction) {
+    return {
+      // entrypoint
+      input: inputFile,
+      output: {
+        file: outputFile,
+        format,
+        plugins: [terser()],
+      },
       plugins: [
-        // Strip plugin don't work in output.plugins!
-        // The "transform" hook used by the output plugin strip is a build time hook and will not be run for that plugin. Either this plugin cannot be used as an output plugin, or it should have an option to configure it as an output plugin.
+        ...plugins,
         strip({
           labels: ['unittest'],
         }),
-        terser(),
       ],
-    },
-  ],
-  plugins: [
-    // commonjs(),
-    nodeResolve(),
-    babel({ babelHelpers: 'bundled' }),
-    ,
-  ],
+    };
+  } else {
+    return {
+      // entrypoint
+      input: inputFile,
+      output: {
+        file: outputFile,
+        format,
+      },
+      plugins: [...plugins],
+    };
+  }
 };
 
-export default config;
+export default config();

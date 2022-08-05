@@ -4,9 +4,11 @@
   "description": "- https://rollupjs.org/guide/en/",
   "main": "index.js",
   "scripts": {
-    "build": "npx rollup --config",
-    "build:gulp": "npx gulp build",
-    "dev:gulp": "npx gulp"
+    "build:dev": "npx rollup --config",
+    "build:prod": "npx rollup --config --environment MODE:production",
+    "build": "npm run build:dev && npm run build:prod",
+    "gulp:build": "npx gulp build",
+    "gulp:dev": "npx gulp"
   },
   "repository": {
     "type": "git",
