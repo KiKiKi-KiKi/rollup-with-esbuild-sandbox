@@ -14,8 +14,9 @@ const buildJS = async (cb) => {
   console.log({ isProduction });
 
   await rollup(config)
-    .then((bundle) => {
-      bundle.write(config.output);
+    .then(async (bundle) => {
+      await bundle.write(config.output);
+      Promise.resolve();
     })
     .catch((error) => {
       if (cb) {
