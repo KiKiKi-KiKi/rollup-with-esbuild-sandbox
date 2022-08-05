@@ -1,5 +1,5 @@
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import { babel } from '@rollup/plugin-babel';
+const { nodeResolve } = require('@rollup/plugin-node-resolve');
+const { babel } = require('@rollup/plugin-babel');
 // not working with ESM and CJS
 // import commonjs from '@rollup/plugin-commonjs';
 
@@ -18,4 +18,4 @@ const config = {
   ],
 };
 
-export default config;
+module.exports = config;
