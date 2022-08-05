@@ -1,4 +1,5 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { babel } from '@rollup/plugin-babel';
 // not working with ESM and CJS
 // import commonjs from '@rollup/plugin-commonjs';
 
@@ -11,8 +12,9 @@ const config = {
     format: 'iife',
   },
   plugins: [
+    // commonjs(),
     nodeResolve(),
-    // commonjs()
+    babel({ babelHelpers: 'bundled' }),
   ],
 };
 
