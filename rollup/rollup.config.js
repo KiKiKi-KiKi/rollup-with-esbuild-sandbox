@@ -1,4 +1,6 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+// not working
+// import commonjs from '@rollup/plugin-commonjs';
 
 const config = {
   // entrypoint
@@ -8,7 +10,10 @@ const config = {
     // esm, cjs, amd, system, iife, umd
     format: 'iife',
   },
-  plugins: [nodeResolve()],
+  plugins: [
+    nodeResolve(),
+    // commonjs()
+  ],
 };
 
 export default config;
