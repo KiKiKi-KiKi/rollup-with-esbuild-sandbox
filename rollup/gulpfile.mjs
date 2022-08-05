@@ -2,9 +2,15 @@
 
 import gulp from 'gulp';
 import { rollup } from 'rollup';
-import config from './rollup.config.mjs';
+import configDev from './rollup/config.dev.mjs';
+import configProd from './rollup/config.prod.mjs';
+
+const isProduction = process.env.NODE_ENV === 'production' || false;
+const config = isProduction ? configProd : configDev;
 
 const buildJS = async (cb) => {
+  console.log({ isProduction });
+
   await rollup(config)
     .then((bundle) => {
       bundle.write(config.output);

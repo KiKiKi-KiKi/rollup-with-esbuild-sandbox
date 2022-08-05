@@ -7,8 +7,11 @@
     "build:dev": "npx rollup --config",
     "build:prod": "npx rollup --config --environment MODE:production",
     "build": "npm run build:dev && npm run build:prod",
-    "gulp:build": "npx gulp build",
-    "gulp:dev": "npx gulp"
+    "gulp:build:dev": "npx gulp build",
+    "gulp:build:prod": "NODE_ENV=production npx gulp build",
+    "gulp:build": "npm run gulp:build:dev && npm run gulp:build:prod",
+    "gulp:dev": "npx gulp",
+    "gulp:dev:prod": "NODE_ENV=production npx gulp"
   },
   "repository": {
     "type": "git",
