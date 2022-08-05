@@ -2,6 +2,8 @@
 
 import gulp from 'gulp';
 import { rollup } from 'rollup';
+import gzip from 'gulp-gzip';
+
 import configDev from './rollup/config.dev.mjs';
 import configProd from './rollup/config.prod.mjs';
 
@@ -25,7 +27,17 @@ const buildJS = async (cb) => {
   cb();
 };
 
-const buildJSTask = gulp.series(buildJS);
+const destDir = './build';
+const gzipJS = (cb) => {
+  return gulp
+    .src(`${destDir}/main.min.js`)
+    .pipe(gzip())
+    .pipe(gulp.dest(`${destDir}`));
+};
+
+const buildJSTask = isProduction
+  ? gulp.series(buildJS, gzipJS)
+  : gulp.series(buildJS);
 
 export default () => {
   gulp.watch(['./src/**/*.js'], buildJSTask);
