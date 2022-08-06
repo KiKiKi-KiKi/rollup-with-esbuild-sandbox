@@ -5,11 +5,14 @@ const config = {
   input: './src/main.js',
   output: {
     file: './build/bundle.js',
-    format: 'iife',
+    format: 'esm',
   },
   plugins: [
     nodeResolve(),
     commonjs({
+      // extensions: ['.js', '.cjs'],
+      // 明示的に
+      // include: [/node_modules/, /src/],
       transformMixedEsModules: true,
     }),
   ],
