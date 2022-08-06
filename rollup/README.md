@@ -124,7 +124,7 @@ console.log(x);
 
 #### :no_good: ESM (`import`) と CommonJS (`require`) が混在すると NG
 
-sum.js
+`sum.js`
 
 ```js
 export const sum = (x, y) => {
@@ -141,7 +141,7 @@ const sub = require('./sub.cjs').sub;
 const a = sum(1, 2);
 console.log(a);
 
-const b = sub(10 - 5);
+const b = sub(10, 5);
 console.log(b);
 ```
 
@@ -160,9 +160,83 @@ console.log(b);
   const a = sum(1, 2);
   console.log(a);
 
-  const b = sub(10 - 5);
+  const b = sub(10, 5);
   console.log(b);
 })();
 ```
 
 :memo: `require` 文を先頭にしても ESM だけが解消される
+
+## `transformMixedEsModules` オプションを使う
+
+`import` と `require` が混在する場合は `transformMixedEsModules: true` オプションを使う必要がある
+
+> **transformMixedEsModules**  
+> Type: `boolean`  
+> Default: `false`
+>
+> Instructs the plugin whether to enable mixed module transformations. This is useful in scenarios with modules that contain a mix of ES `import` statements and CommonJS `require` expressions. Set to `true` if `require` calls should be transformed to imports in mixed modules, or `false` if the `require` expressions should survive the transformation. The latter can be important if the code contains environment detection, or you are coding for an environment with special treatment for `require` calls such as [ElectronJS](https://www.electronjs.org/). See also the "ignore" option.  
+> cf. https://github.com/rollup/plugins/tree/master/packages/commonjs#transformmixedesmodules
+
+`rollup.config.js`
+
+```diff
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+
+const config = {
+  input: './src/index.js',
+  output: {
+    file: './build/dist.js',
+    format: 'iife',
+  },
+-  plugin: [commonjs(), nodeResolve()],
++  plugins: [
++    nodeResolve(),
++    commonjs({
++      transformMixedEsModules: true,
++    }),
++  ],
+};
+```
+
+`main.js`
+
+```js
+import { sum } from './sum';
+const { sub } = require('./sub.cjs');
+
+const a = sum(1, 2);
+console.log(a);
+
+const b = sub(10, 5);
+console.log(b);
+```
+
+:point_down: Build
+
+```js
+(function () {
+  'use strict';
+
+  var sub_cjs = {};
+
+  const sub$1 = (x, y) => {
+    return x - y;
+  };
+
+  sub_cjs.sub = sub$1;
+
+  const sum = (x, y) => {
+    return x + y;
+  };
+
+  const { sub } = sub_cjs;
+
+  const a = sum(1, 2);
+  console.log(a);
+
+  const b = sub(10, 5);
+  console.log(b);
+})();
+```

@@ -3,7 +3,3 @@ const sub = (x, y) => {
 };
 
 exports.sub = sub;
-
-module.exports = {
-  sub,
-};
